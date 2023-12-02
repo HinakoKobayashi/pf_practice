@@ -14,9 +14,10 @@ Rails.application.routes.draw do
   get '/search' => 'searches#search'
   get '/tag/search' => 'searches#tag_search'
 
+  resources :posts, except: [:new] 
+
   namespace :admin do
     root to: 'homes#top'
-    resources :posts, except: [:new]
     resources :users, only: [:index, :edit, :show, :update]
     resources :tags, only: [:index, :edit, :create, :update, :destroy]
     
@@ -25,7 +26,6 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: 'homes#top'
     get 'about' => 'homes#about'
-    resources :posts, except: [:new]
     resources :users, only: [:index, :edit, :show, :update] do
       collection do
         get :check
